@@ -1,15 +1,17 @@
 from graph.state import PortfolioState
+
 from services.ollama_service import get_llm
-from prompts.chatbot_prompt import chatbot_prompt
+from prompts.portfolio_prompt import portfolio_prompt
 
 
-def chatbot_node(state: PortfolioState) -> PortfolioState:
-    print("\n===== Chatbot Node Executed =====")
+def portfolio_node(state: PortfolioState) -> PortfolioState:
+    print("\n===== Portfolio Node Executed =====")
+
     question = state["question"]
 
     llm = get_llm()
 
-    messages = chatbot_prompt.format_messages(
+    messages = portfolio_prompt.format_messages(
         question=question
     )
 
