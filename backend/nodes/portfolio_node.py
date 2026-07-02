@@ -1,7 +1,6 @@
 from graph.state import PortfolioState
 
-from services.ollama_service import get_llm
-from prompts.portfolio_prompt import portfolio_prompt
+from services.rag_service import generate_rag_response
 
 
 def portfolio_node(state: PortfolioState) -> PortfolioState:
@@ -9,14 +8,8 @@ def portfolio_node(state: PortfolioState) -> PortfolioState:
 
     question = state["question"]
 
-    llm = get_llm()
+    answer = generate_rag_response(question)
 
-    messages = portfolio_prompt.format_messages(
-        question=question
-    )
-
-    response = llm.invoke(messages)
-
-    state["answer"] = response.content
+    state["answer"] = answer
 
     return state
