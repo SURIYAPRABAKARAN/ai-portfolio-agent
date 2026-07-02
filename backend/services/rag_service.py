@@ -1,3 +1,7 @@
+from pyexpat.errors import messages
+
+from opentelemetry import context
+
 from services.vector_store import get_retriever
 from services.ollama_service import get_llm
 
@@ -15,10 +19,11 @@ def generate_rag_response(question: str) -> str:
     retriever = get_retriever()
 
     documents = retriever.invoke(question)
-
+    
     # ==========================================
     # Build context
     # ==========================================
+    
     context = "\n\n".join(
         doc.page_content for doc in documents
     )
@@ -31,11 +36,12 @@ def generate_rag_response(question: str) -> str:
         question=question
     )
 
+
     # ==========================================
     # Call LLM
     # ==========================================
     llm = get_llm()
-
+    
     response = llm.invoke(messages)
 
     return response.content

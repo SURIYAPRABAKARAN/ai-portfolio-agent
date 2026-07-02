@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_core.messages import BaseMessage
+from tools.calculator_tool import calculator
 
 # Load environment variables
 load_dotenv()
@@ -17,8 +18,13 @@ def get_llm():
 
     llm = ChatOllama(
         model=model_name,
-        temperature=0
+        temperature=0,
+        num_predict=256
     )
+    
+    llm = llm.bind_tools([
+        calculator
+    ])
 
     return llm
 

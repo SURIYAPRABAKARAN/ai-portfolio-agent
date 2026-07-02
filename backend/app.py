@@ -1,6 +1,9 @@
+from services.indexing_service import initialize_vector_store
 from fastapi import FastAPI
 
 from graph.graph import build_graph
+
+initialize_vector_store()
 
 app = FastAPI()
 

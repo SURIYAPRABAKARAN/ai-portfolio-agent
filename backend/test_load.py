@@ -28,10 +28,22 @@ from services.vector_store import get_retriever
 # ---------------------------------------------------------------------------------------
 
 
+# retriever = get_retriever()
+
+# documents = retriever.invoke("Where do you work?")
+
+# for doc in documents:
+#     print("=" * 50)
+#     print(doc.page_content)
+# ---------------------------------------------------------------------------------------
+
+from services.vector_store import get_retriever
+
 retriever = get_retriever()
 
-documents = retriever.invoke("Where do you work?")
+docs = retriever.invoke("project")
 
-for doc in documents:
-    print("=" * 50)
+for i, doc in enumerate(docs, 1):
+    print("=" * 80)
+    print(f"Chunk {i}")
     print(doc.page_content)
